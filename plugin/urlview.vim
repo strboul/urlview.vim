@@ -31,13 +31,12 @@ let g:loaded_urlview=1
 function s:UrlviewMain()
   let l:lines=s:GetAllLinesCurrBuffer()
   let l:urls=s:MatchAllLinks(l:lines)
-  if !len(l:urls) > 0
+  if !len(l:urls)>0
     echo 'No URLs found in the buffer.'
     return -1
   endif
   call s:MenuOpenLink(l:urls)
 endfunction
-
 
 command! Urlview :call <SID>UrlviewMain()
 
@@ -69,8 +68,10 @@ function s:OpenLink(url)
 endfunction
 
 
-" Inspired by
+" References
+"
 " https://github.com/semanticart/simple-menu.vim/blob/4ca28052d534cb14a91a9524dc51f82c494c6c5e/plugin/simple_menu.vim
+" https://vim.fandom.com/wiki/User_input_from_a_script
 function s:MenuOpenLink(urls)
   let l:len_urls=len(a:urls)
   let l:nums=range(1,l:len_urls)
@@ -82,12 +83,17 @@ function s:MenuOpenLink(urls)
     echo ''
   endfor
   echo "\n"
-  echohl Question | echo 'Please choose a number ' | echohl None
-  let l:choice=nr2char(getchar())
+  call inputsave()
+  echohl Question | let l:choice=input('Choose a number: ') | echohl None
+  call inputrestore()
   redraw!
-  if has_key(l:mapping,l:choice)
-    let l:chosen_url=l:mapping[l:choice]
-    call s:OpenLink(l:chosen_url)
-    echo 'opened: ' . l:chosen_url
+  if len(l:choice)>0
+    if has_key(l:mapping,l:choice)
+      let l:chosen_url=l:mapping[l:choice]
+      call s:OpenLink(l:chosen_url)
+      echo 'opened: ' . l:chosen_url
+    else
+      echohl WarningMsg | echo 'Error: invalid number' | echohl None
+    endif
   endif
 endfunction
