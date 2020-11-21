@@ -21,7 +21,7 @@
 " IN THE SOFTWARE.
 
 
-" don't load the plugin multiple times
+" don't load plugin multiple times
 if exists("g:loaded_urlview")
   finish
 endif
@@ -49,7 +49,9 @@ endfunction
 
 function s:MatchAllLinks(lines)
   let l:pattern_url='http[s]\?:\/\/[[:alnum:]\%\/_\#.-]*'
-  return s:MatchAll(a:lines,l:pattern_url)
+  let l:matched_urls=s:MatchAll(a:lines,l:pattern_url)
+  let l:uniq_urls=uniq(filter(l:matched_urls, 'len(v:val)>0'))
+  return l:uniq_urls
 endfunction
 
 
