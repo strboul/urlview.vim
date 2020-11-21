@@ -28,4 +28,4 @@ No dependencies.
 
 ## Acknowledgments
 
-+ Inspired from [tmux-urlview](https://github.com/tmux-plugins/tmux-urlview)
++ Inspired by [tmux-urlview](https://github.com/tmux-plugins/tmux-urlview)
