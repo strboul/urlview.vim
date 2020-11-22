@@ -2,15 +2,15 @@
 
 List and open URLs easily.
 
-<GIF>
-
 ## Usage
+
+<img src="https://raw.githubusercontent.com/strboul/urlview.vim/master/urlview.gif" height="465"/>
 
 ```vim
 :Urlview
 ```
 
-Optionally, you can assign keybindings. For example:
+Optionally, you can assign it to a keybinding. For instance:
 
 ```vim
 nnoremap <silent> <leader>u :Urlview<CR>
